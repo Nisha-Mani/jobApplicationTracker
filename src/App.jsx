@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Search from "./components/Search";
 import "./App.css";
+import AddJobModal from "./components/AddJobModal";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("All");
-  console.log(filter);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const jobs = [
     {
       key: 1,
@@ -43,10 +45,27 @@ function App() {
     return matchesSearch && matchesStatus;
   });
 
+  console.log(isModalOpen);
   return (
     <>
       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <button>Add New Job</button>
+
+      <button
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+      >
+        Add New Job
+      </button>
+
+      {isModalOpen && (
+        <>
+          <div className="overlay" onClick={() => setIsModalOpen(false)} />
+          <div className="modal">
+            <AddJobModal closeModal={() => setIsModalOpen(false)} />
+          </div>
+        </>
+      )}
 
       <label htmlFor="status">Filter by Status:</label>
       <select id="status" onChange={(e) => setFilter(e.target.value)}>

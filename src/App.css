@@ -75,3 +75,40 @@ li {
   font-size: 14px;
   color: #777;
 }
+
+/* src/components/styles/Modal.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  z-index: 1000;
+  min-width: 300px;
+  max-width: 90%;
+}
+
+.add-job-modal input,
+.add-job-modal select {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.add-job-modal .buttons {
+  display: flex;
+  justify-content: space-between;
+}
