@@ -1,40 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import "./App.css";
 import AddJobModal from "./components/AddJobModal";
+import axios from "axios";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jobs, setJobs] = useState([]);
 
-  const jobs = [
-    {
-      key: 1,
-      company: "Google",
-      title: "Frontend Developer",
-      status: "Applied",
-    },
-    {
-      key: 2,
-      company: "Amazon",
-      title: "Backend Developer",
-      status: "Rejected",
-    },
-    {
-      key: 3,
-      company: "Microsoft",
-      title: "Full Stack Engineer",
-      status: "Applied",
-    },
-    { key: 4, company: "Netflix", title: "UI/UX Designer", status: "Rejected" },
-    {
-      key: 5,
-      company: "Google Cloud",
-      title: "Cloud Developer",
-      status: "Rejected",
-    },
-  ];
+  // Fetch jobs from the backend when the component mounts
+  useEffect(() => {
+    axios
+      .get("/api/jobs") // Backend API endpoint
+      .then((response) => {
+        console.log("Axios get:",response.data); // Log the response data
+        setJobs(response.data); // Set the jobs data
+      })
+      .catch((error) => {
+        console.error("Error fetching jobs:", error);
+      });
+  }, []); // Empty dependency array to run only on mount
+
+  const handleJobAdded = (newJob) => {
+    setJobs((prevJobs) => [...prevJobs, newJob]);
+  };
 
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
@@ -45,7 +36,6 @@ function App() {
     return matchesSearch && matchesStatus;
   });
 
-  console.log(isModalOpen);
   return (
     <>
       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -62,7 +52,10 @@ function App() {
         <>
           <div className="overlay" onClick={() => setIsModalOpen(false)} />
           <div className="modal">
-            <AddJobModal closeModal={() => setIsModalOpen(false)} />
+            <AddJobModal
+              closeModal={() => setIsModalOpen(false)}
+              onJobAdded={handleJobAdded}
+            />
           </div>
         </>
       )}
@@ -75,7 +68,11 @@ function App() {
       </select>
       <ul>
         {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => <li key={job.key}>{job.title}</li>)
+          filteredJobs.map((job) => (
+            <li key={job._id}>
+              {job.title} @ {job.company}
+            </li>
+          ))
         ) : (
           <li>No jobs found.</li>
         )}
