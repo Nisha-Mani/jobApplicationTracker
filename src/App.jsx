@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import "./App.css";
 import AddJobModal from "./components/AddJobModal";
+import JobCard from "./components/JobCard";
 import axios from "axios";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     axios
       .get("/api/jobs") // Backend API endpoint
       .then((response) => {
-        console.log("Axios get:",response.data); // Log the response data
+        console.log("Axios get:", response.data); // Log the response data
         setJobs(response.data); // Set the jobs data
       })
       .catch((error) => {
@@ -36,17 +37,41 @@ function App() {
     return matchesSearch && matchesStatus;
   });
 
+  const handleViewMore = (job) => {
+    console.log("View more clicked for job:", job);
+    // Navigate to the edit page or open a modal
+  };
+
   return (
-    <>
+    <div className="container">
+      <header>
+        <h1>Job Application Tracker</h1>
+        <button onClick={() => setIsModalOpen(true)}>Add New Job</button>
+      </header>
+
       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <button
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
-      >
-        Add New Job
-      </button>
+      <div className="search-bar">
+        <select onChange={(e) => setFilter(e.target.value)}>
+          <option>All</option>
+          <option>Applied</option>
+          <option>Rejected</option>
+          <option>Interviewing</option>
+          <option>Offer</option>
+          <option>Accepted</option>
+          <option>Declined</option>
+        </select>
+      </div>
+
+      <div className="job-grid">
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
+            <JobCard key={job._id} job={job} onViewMore={handleViewMore} />
+          ))
+        ) : (
+          <p>No jobs found.</p>
+        )}
+      </div>
 
       {isModalOpen && (
         <>
@@ -59,25 +84,7 @@ function App() {
           </div>
         </>
       )}
-
-      <label htmlFor="status">Filter by Status:</label>
-      <select id="status" onChange={(e) => setFilter(e.target.value)}>
-        <option>All</option>
-        <option>Applied</option>
-        <option>Rejected</option>
-      </select>
-      <ul>
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => (
-            <li key={job._id}>
-              {job.title} @ {job.company}
-            </li>
-          ))
-        ) : (
-          <li>No jobs found.</li>
-        )}
-      </ul>
-    </>
+    </div>
   );
 }
 

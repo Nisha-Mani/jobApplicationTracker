@@ -1,114 +1,40 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 2rem;
+  margin: 0;
+  padding: 0;
   background-color: #f7f7f7;
   color: #333;
 }
 
-button {
-  margin: 10px 5px;
-  padding: 8px 16px;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Section */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+header button {
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
-button:hover {
+header button:hover {
   background-color: #0056b3;
-}
-
-label,
-select {
-  margin-right: 10px;
-  font-size: 16px;
-}
-
-select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  background: white;
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.job-logo {
-  width: 50px;
-  height: 50px;
-  background-color: #ddd;
-  border-radius: 50%;
-  margin-right: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 18px;
-  color: #555;
-}
-
-.job-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.job-title {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.job-company {
-  font-size: 14px;
-  color: #777;
-}
-
-/* src/components/styles/Modal.css */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  z-index: 1000;
-  min-width: 300px;
-  max-width: 90%;
-}
-
-.add-job-modal input,
-.add-job-modal select {
-  display: block;
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-}
-
-.add-job-modal .buttons {
-  display: flex;
-  justify-content: space-between;
 }

@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 const jobSchema = new mongoose.Schema({
   company: { type: String, required: true },
   title: { type: String, required: true },
-  URL: { type: String, required: true },
+  url: { type: String, default: null, required: false }, // Optional field
   status: { type: String, default: "Applied" }, // Optional field
 });
 
@@ -53,7 +53,7 @@ app.get("/api/jobs", async (req, res) => {
   }
 });
 
-// POST route to add a new job 
+// POST route to add a new job
 app.post("/api/jobs", async (req, res) => {
   try {
     const newJob = new Job(req.body);
