@@ -32,7 +32,7 @@ A full-stack web application to manage and track your job applications. Easily f
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/jobApplicationTracker.git
+git clone https://github.com/Nisha-Mani/jobApplicationTracker.git
 cd jobApplicationTracker
 ```
 
